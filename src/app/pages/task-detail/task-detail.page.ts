@@ -22,7 +22,7 @@ export class TaskDetailPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.taskId = this.route.snapshot.params['id'];
+    this.taskId = this.route.snapshot.paramMap.get('id') ? Number(this.route.snapshot.paramMap.get('id')) : null;
     if (this.taskId) {
       this.isLoading = true;
       this.taskService.getTaskById(this.taskId).subscribe(response => {

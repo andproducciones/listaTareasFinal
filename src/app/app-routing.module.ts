@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'task-form',
     loadChildren: () => import('./pages/task-form/task-form.module').then( m => m.TaskFormPageModule)
   },
+  { 
+    path: 'task-form/:id', 
+    loadChildren: () => import('./pages/task-form/task-form.module').then(m => m.TaskFormPageModule) 
+  },
   {
     path: 'task-detail/:id',
     loadChildren: () => import('./pages/task-detail/task-detail.module').then( m => m.TaskDetailPageModule)
