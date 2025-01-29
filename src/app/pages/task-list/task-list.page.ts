@@ -18,6 +18,11 @@ export class TaskListPage implements OnInit {
     this.loadTasks();
   }
 
+  ionViewWillEnter() {
+    this.loadTasks();  // 🔄 Se recarga la lista cada vez que se entra a la pantalla
+  }
+
+
   loadTasks() {
     this.taskService.getTasks().subscribe(response => {
       if (response.estado) {
