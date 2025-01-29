@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,9 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class HomePage {
+  constructor(private navCtrl: NavController) {}
 
-  constructor() {}
-
+  goToTaskList() {
+    this.navCtrl.navigateForward('/task-list');
+  }
 }

@@ -10,6 +10,7 @@ import { TaskService } from 'src/app/services/task.service';
 })
 export class TaskListPage implements OnInit {
   tasks: any[] = [];
+  searchText: string = '';
 
   constructor(private taskService: TaskService, private navCtrl: NavController) {}
 
@@ -25,6 +26,12 @@ export class TaskListPage implements OnInit {
         console.error('Error al cargar tareas:', response.mensaje);
       }
     });
+  }
+
+  filterTasks() {
+    this.tasks = this.tasks.filter(task =>
+      task.titulo.toLowerCase().includes(this.searchText.toLowerCase())
+    );
   }
 
   addTask() {
