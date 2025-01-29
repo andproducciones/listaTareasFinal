@@ -85,8 +85,8 @@ export class TaskListPage implements OnInit {
 
   async presentLoading() {
     const loading = await this.loadingCtrl.create({
-      message: 'Cargando tareas...',
-      duration: 3000,
+      message: 'Cargando',
+      duration: 800,
       spinner: 'bubbles'
     });
     await loading.present();
