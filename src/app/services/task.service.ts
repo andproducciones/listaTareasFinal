@@ -18,28 +18,23 @@ export class TaskService {
 
   constructor(private http: HttpClient) {}
 
-  // Obtener todas las tareas
   getTasks(): Observable<any> {
-    return this.http.post(this.API_URL, { action: 'listar' });
+    return this.http.post(this.API_URL, { action: 'listar' }, this.httpOptions);
   }
 
-  // Obtener una tarea por ID
-  getTaskById(id: number): Observable<any> {
-    return this.http.post(this.API_URL, { action: 'tarea', id });
-  }
-
-  // Agregar una nueva tarea
   addTask(task: any): Observable<any> {
-    return this.http.post(this.API_URL, { action: 'insertar', ...task });
+    return this.http.post(this.API_URL, { action: 'insertar', ...task }, this.httpOptions);
   }
 
-  // Actualizar una tarea existente
-  updateTask(task: any): Observable<any> {
-    return this.http.post(this.API_URL, { action: 'actualizar', ...task });
-  }
-
-  // Eliminar una tarea por ID
   deleteTask(id: number): Observable<any> {
-    return this.http.post(this.API_URL, { action: 'eliminar', id });
+    return this.http.post(this.API_URL, { action: 'eliminar', id }, this.httpOptions);
+  }
+
+  updateTask(task: any): Observable<any> {
+    return this.http.post(this.API_URL, { action: 'actualizar', ...task }, this.httpOptions);
+  }
+
+  getTaskById(id: number): Observable<any> {
+    return this.http.post(this.API_URL, { action: 'tarea', id }, this.httpOptions);
   }
 }
