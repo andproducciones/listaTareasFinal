@@ -8,7 +8,7 @@ import { NavController } from '@ionic/angular';
   standalone: false,
 })
 export class HomePage {
-  constructor(private navCtrl: NavController) {}
+  constructor(private navCtrl: NavController) { }
 
   goToTaskList() {
     this.navCtrl.navigateForward('/task-list');
