@@ -1,13 +1,23 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>task-detail</ion-title>
+    <ion-title>Detalles de la Tarea</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">task-detail</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content *ngIf="task">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ task.titulo }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p>{{ task.descripcion }}</p>
+      <ion-badge [color]="task.estado === 'pendiente' ? 'warning' : 'success'">
+        {{ task.estado }}
+      </ion-badge>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="full" color="primary" (click)="editTask(task.id)">Editar</ion-button>
+  <ion-button expand="full" color="danger" (click)="deleteTask(task.id)">Eliminar</ion-button>
 </ion-content>
