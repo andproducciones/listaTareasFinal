@@ -43,6 +43,10 @@ export class TaskListPage implements OnInit {
     this.navCtrl.navigateForward(`/task-detail/${id}`);
   }
 
+  editTask(id: number) {
+    this.navCtrl.navigateForward(`/task-form/${id}`);
+  }
+
   deleteTask(id: number) {
     this.taskService.deleteTask(id).subscribe(response => {
       if (response.estado) {
