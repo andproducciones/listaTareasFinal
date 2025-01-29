@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-task-list',
@@ -7,10 +9,37 @@ import { Component, OnInit } from '@angular/core';
   standalone: false
 })
 export class TaskListPage implements OnInit {
+  tasks: any[] = [];
 
-  constructor() { }
+  constructor(private taskService: TaskService, private navCtrl: NavController) {}
 
   ngOnInit() {
+    this.loadTasks();
   }
 
+  loadTasks() {
+    this.taskService.getTasks().subscribe(response => {
+      if (response.estado) {
+        this.tasks = response.tareas;
+      } else {
+        console.error('Error al cargar tareas:', response.mensaje);
+      }
+    });
+  }
+
+  addTask() {
+    this.navCtrl.navigateForward('/task-form');
+  }
+
+  editTask(id: number) {
+    this.navCtrl.navigateForward(`/task-form/${id}`);
+  }
+
+  deleteTask(id: number) {
+    this.taskService.deleteTask(id).subscribe(response => {
+      if (response.estado) {
+        this.loadTasks();
+      }
+    });
+  }
 }
