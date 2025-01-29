@@ -11,30 +11,35 @@ export class TaskService {
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    })
+      'Accept': 'application/json'
+    }),
+    withCredentials: false // 🔹 IMPORTANTE: Si no usas autenticación con cookies, debe ser false.
   };
 
   constructor(private http: HttpClient) {}
 
+  // Obtener todas las tareas
   getTasks(): Observable<any> {
-    return this.http.post(this.API_URL, { action: 'listar' }, this.httpOptions);
+    return this.http.post(this.API_URL, JSON.stringify({ action: 'listar' }), this.httpOptions);
   }
 
+  // Insertar una nueva tarea
   addTask(task: any): Observable<any> {
-    return this.http.post(this.API_URL, { action: 'insertar', ...task }, this.httpOptions);
+    return this.http.post(this.API_URL, JSON.stringify({ action: 'insertar', ...task }), this.httpOptions);
   }
 
+  // Eliminar una tarea por ID
   deleteTask(id: number): Observable<any> {
-    return this.http.post(this.API_URL, { action: 'eliminar', id }, this.httpOptions);
+    return this.http.post(this.API_URL, JSON.stringify({ action: 'eliminar', id }), this.httpOptions);
   }
 
+  // Actualizar una tarea
   updateTask(task: any): Observable<any> {
-    return this.http.post(this.API_URL, { action: 'actualizar', ...task }, this.httpOptions);
+    return this.http.post(this.API_URL, JSON.stringify({ action: 'actualizar', ...task }), this.httpOptions);
   }
 
+  // Obtener una tarea por ID
   getTaskById(id: number): Observable<any> {
-    return this.http.post(this.API_URL, { action: 'tarea', id }, this.httpOptions);
+    return this.http.post(this.API_URL, JSON.stringify({ action: 'tarea', id }), this.httpOptions);
   }
 }

@@ -36,6 +36,7 @@ export class TaskListPage implements OnInit {
 
   addTask() {
     this.navCtrl.navigateForward('/task-form');
+    this.loadTasks();
   }
 
   editTask(id: number) {

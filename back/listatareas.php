@@ -16,25 +16,25 @@ if (!$conection) {
 }
 
 // Capturar datos JSON del cuerpo de la solicitud
-$post = json_decode(file_get_contents("php://input"), true);
+//$_POST = json_decode(file_get_contents("php://input"), true);
 
 // Validar que la acción esté definida
-if (!isset($post['action'])) {
-    echo json_encode(array('estado' => false, 'mensaje' => 'Acción no especificada.'));
+if (!isset($_POST['action'])) {
+    echo json_encode(array('estado' => false, 'mensaje' => 'Acción no especificada1.'));
     exit();
 }
 
 // Acción: insertar tarea
-if ($post['action'] == 'insertar') {
-    if (!isset($post['titulo'], $post['descripcion'], $post['estado']) ||
-        empty($post['titulo']) || empty($post['descripcion']) || empty($post['estado'])) {
+if ($_POST['action'] == 'insertar') {
+    if (!isset($_POST['titulo'], $_POST['descripcion'], $_POST['estado']) ||
+        empty($_POST['titulo']) || empty($_POST['descripcion']) || empty($_POST['estado'])) {
         echo json_encode(array('estado' => false, 'mensaje' => 'Todos los campos son obligatorios.'));
         exit();
     }
 
-    $titulo = mysqli_real_escape_string($conection, $post['titulo']);
-    $descripcion = mysqli_real_escape_string($conection, $post['descripcion']);
-    $estado = mysqli_real_escape_string($conection, $post['estado']);
+    $titulo = mysqli_real_escape_string($conection, $_POST['titulo']);
+    $descripcion = mysqli_real_escape_string($conection, $_POST['descripcion']);
+    $estado = mysqli_real_escape_string($conection, $_POST['estado']);
 
     $sql_insert = "INSERT INTO tareas (titulo, descripcion, estado) VALUES ('$titulo', '$descripcion', '$estado')";
 
@@ -46,13 +46,13 @@ if ($post['action'] == 'insertar') {
 }
 
 // Acción: eliminar tarea
-elseif ($post['action'] == 'eliminar') {
-    if (!isset($post['id']) || empty($post['id'])) {
+elseif ($_POST['action'] == 'eliminar') {
+    if (!isset($_POST['id']) || empty($_POST['id'])) {
         echo json_encode(array('estado' => false, 'mensaje' => 'El ID es obligatorio para eliminar.'));
         exit();
     }
 
-    $id = mysqli_real_escape_string($conection, $post['id']);
+    $id = mysqli_real_escape_string($conection, $_POST['id']);
     $sql_delete = "DELETE FROM tareas WHERE id = '$id'";
 
     if (mysqli_query($conection, $sql_delete)) {
@@ -63,17 +63,17 @@ elseif ($post['action'] == 'eliminar') {
 }
 
 // Acción: actualizar tarea
-elseif ($post['action'] == 'actualizar') {
-    if (!isset($post['id'], $post['titulo'], $post['descripcion'], $post['estado']) ||
-        empty($post['id']) || empty($post['titulo']) || empty($post['descripcion']) || empty($post['estado'])) {
+elseif ($_POST['action'] == 'actualizar') {
+    if (!isset($_POST['id'], $_POST['titulo'], $_POST['descripcion'], $_POST['estado']) ||
+        empty($_POST['id']) || empty($_POST['titulo']) || empty($_POST['descripcion']) || empty($_POST['estado'])) {
         echo json_encode(array('estado' => false, 'mensaje' => 'Todos los campos son obligatorios para actualizar.'));
         exit();
     }
 
-    $id = mysqli_real_escape_string($conection, $post['id']);
-    $titulo = mysqli_real_escape_string($conection, $post['titulo']);
-    $descripcion = mysqli_real_escape_string($conection, $post['descripcion']);
-    $estado = mysqli_real_escape_string($conection, $post['estado']);
+    $id = mysqli_real_escape_string($conection, $_POST['id']);
+    $titulo = mysqli_real_escape_string($conection, $_POST['titulo']);
+    $descripcion = mysqli_real_escape_string($conection, $_POST['descripcion']);
+    $estado = mysqli_real_escape_string($conection, $_POST['estado']);
 
     $sql_update = "UPDATE tareas SET titulo = '$titulo', descripcion = '$descripcion', estado = '$estado' WHERE id = '$id'";
 
@@ -85,13 +85,13 @@ elseif ($post['action'] == 'actualizar') {
 }
 
 // Acción: obtener tarea por ID
-elseif ($post['action'] == 'tarea') {
-    if (!isset($post['id']) || empty($post['id'])) {
+elseif ($_POST['action'] == 'tarea') {
+    if (!isset($_POST['id']) || empty($_POST['id'])) {
         echo json_encode(array('estado' => false, 'mensaje' => 'El ID es obligatorio.'));
         exit();
     }
 
-    $id = mysqli_real_escape_string($conection, $post['id']);
+    $id = mysqli_real_escape_string($conection, $_POST['id']);
     $sql = "SELECT * FROM tareas WHERE id = '$id'";
     $query = mysqli_query($conection, $sql);
 
@@ -104,7 +104,7 @@ elseif ($post['action'] == 'tarea') {
 }
 
 // Acción: listar todas las tareas
-elseif ($post['action'] == 'listar') {
+elseif ($_POST['action'] == 'listar') {
     $sql = "SELECT * FROM tareas";
     $query = mysqli_query($conection, $sql);
 
