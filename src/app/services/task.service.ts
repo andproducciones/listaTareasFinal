@@ -40,6 +40,7 @@ export class TaskService {
 
   // Obtener una tarea por ID
   getTaskById(id: number): Observable<any> {
-    return this.http.post(this.API_URL, JSON.stringify({ action: 'tarea', id }), this.httpOptions);
+    console.log('ID de tarea recibido:', id);
+    return this.http.post(this.API_URL, JSON.stringify({ action: 'obtener', id }), this.httpOptions);
   }
 }

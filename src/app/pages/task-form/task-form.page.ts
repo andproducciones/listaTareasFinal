@@ -24,9 +24,11 @@ export class TaskFormPage implements OnInit {
   ngOnInit() {
     this.taskId = this.route.snapshot.params['id'];
     if (this.taskId) {
+      console.log('ID de tarea:', this.taskId);
       this.isLoading = true;
       this.taskService.getTaskById(this.taskId).subscribe(response => {
         if (response.estado) {
+          console.log('Respuesta del servidor:', response);
           this.task = response.tarea;
         }
         this.isLoading = false;
