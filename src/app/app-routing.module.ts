@@ -11,6 +11,18 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'task-list',
+    loadChildren: () => import('./pages/task-list/task-list.module').then( m => m.TaskListPageModule)
+  },
+  {
+    path: 'task-form',
+    loadChildren: () => import('./pages/task-form/task-form.module').then( m => m.TaskFormPageModule)
+  },
+  {
+    path: 'task-detail',
+    loadChildren: () => import('./pages/task-detail/task-detail.module').then( m => m.TaskDetailPageModule)
+  },
 ];
 
 @NgModule({
